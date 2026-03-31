@@ -1,0 +1,57 @@
+# --- CORE PYTHON ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# --- DATA & MODELS (Never upload large/sensitive binaries) ---
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+models/*
+!models/.gitkeep
+
+# Ignore specific results/output
+*.csv
+*.parquet
+*.pth
+*.zip
+*.pkl
+*.json
+
+# --- SECRETS & CONFIG ---
+.env
+.env.*
+.vscode/
+.idea/
+.DS_Store
+
+# --- STREAMLIT ---
+.streamlit/config.toml
+.streamlit/static/
+
+/.venv/
+/venv/
+/env/
+__pycache__/
+*.pyc
+data/processed/
+data/raw/
+models/
+.env
+.ipynb_checkpoints/

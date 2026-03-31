@@ -1,0 +1,47 @@
+name: Daily Stock Prediction
+
+on:
+  schedule:
+    - cron: '0 9 * * 1-5' # Run at 9 AM UTC on weekdays
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Fetch Data
+      run: python src/data_ingestion.py
+      
+    - name: Sentiment Analysis
+      run: python src/sentiment_analysis.py
+      
+    - name: Feature Engineering
+      run: python src/feature_engineering.py
+      
+    - name: Train Model
+      run: python src/model.py
+      
+    - name: Run Backtest/Inference
+      run: python src/backtest.py
+      
+    - name: Commit Results
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add data/processed models
+        git commit -m "Update predictions and model" || echo "No changes to commit"
+        git push
